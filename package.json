@@ -1,0 +1,23 @@
+{
+3 "nome" : "coordenação-api" ,     
+4 "versão" : "1.0.0" ,     
+5 "descrição" : "" ,     
+6 "roteiros" : {     
+7 "build" : "echo \"Nenhuma compilação especificada\" && exit 1" ,         
+8 "test" : "echo \"Nenhum teste especificado\" && exit 1" ,         
+9 "iniciar" : "nó index.js"         
+10 } ,    
+11 "repositório" : {     
+12 "tipo" : "git" ,         
+13 "url" : "git+https://github.com/Enzoroge/coordenacao-api.git"         
+14 } ,    
+15 "autor" : "" ,     
+16 "licença" : "ISC" ,     
+17 "insetos" : {     
+18 "url" : "https://github.com/Enzoroge/coordenacao-api/issues"         
+19 } ,    
+20 "página inicial" : "https://github.com/Enzoroge/coordenacao-api#readme"     
+21 }
+22 
+
+
