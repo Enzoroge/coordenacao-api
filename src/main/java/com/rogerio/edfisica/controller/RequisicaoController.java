@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rogerio.edfisica.model.RequisicaoMaterial;
-import com.rogerio.edfisica.model.Usuario;
 import com.rogerio.edfisica.service.RequisicaoService;
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping(value="/requisicoes")
 public class RequisicaoController {
@@ -48,7 +47,14 @@ public class RequisicaoController {
 	@PutMapping(value= "/{id}")
 	public ResponseEntity<RequisicaoMaterial> update(@PathVariable Long id, @RequestBody RequisicaoMaterial obj){
 		RequisicaoMaterial ob = requisicaoService.update(id, obj);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(ob);
+		
+	}
+	
+	@DeleteMapping(value="/{id}")
+	public ResponseEntity<Void>delete(@PathVariable Long id){
+		requisicaoService.delete(id);
+		return ResponseEntity.noContent().build();
 		
 	}
 	

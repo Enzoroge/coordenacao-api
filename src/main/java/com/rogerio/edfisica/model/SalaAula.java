@@ -1,5 +1,6 @@
 package com.rogerio.edfisica.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,10 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name="sala_aula")
-public class SalaAula {
-	
+public class SalaAula implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -26,6 +29,10 @@ public class SalaAula {
 	public SalaAula() {
 		super();
 		
+	}
+	
+	public SalaAula(String id) {
+		this.id= Long.parseLong(id);
 	}
 
 	public SalaAula(Long id, String nome) {

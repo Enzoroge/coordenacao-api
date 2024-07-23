@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rogerio.edfisica.model.Material;
 import com.rogerio.edfisica.service.MaterialService;
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping(value ="/materiais")
 public class MaterialController {
@@ -38,6 +39,25 @@ public class MaterialController {
 		List <Material> list = materialService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
+	
+//	@GetMapping(value = "/nome/{nome}")
+//	public ResponseEntity<List<Material>> findByNome(@RequestParam("nome") String nome) {
+//		List<Material> list = materialService.findByNomeIgnoreCase(nome);
+//		return ResponseEntity.ok().body(list);
+//	}
+//	
+	@GetMapping(value = "/nome")
+	public ResponseEntity<List<Material>> findByNome(@RequestParam("nome") String nome) {
+	    List<Material> list = materialService.findByNomeIgnoreCase(nome);
+	    
+	    if (list.isEmpty()) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    
+	    return ResponseEntity.ok().body(list);	}
+
+	
+	
 	@PostMapping
 	public ResponseEntity<Material> cadastrar(@RequestBody Material obj){
 		Material ob = materialService.cadastrar(obj);

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,9 +23,15 @@ public class Material {
 	private String nome;
 	private int quantidade;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "material")
 	private List<RequisicaoMaterial> list1 = new ArrayList<>();
 	
+	 public Material(String id) {
+	        this.id = Long.parseLong(id);
+	    }
+	 
+	 
 	public Material() {
 		super();
 		
@@ -54,6 +62,10 @@ public class Material {
 
 	public int getQuantidade() {
 		return quantidade;
+	}
+	
+	public int getRequisicao(int quantidade) {
+		return this.quantidade -= quantidade;
 	}
 
 	public void setQuantidade(int quantidade) {

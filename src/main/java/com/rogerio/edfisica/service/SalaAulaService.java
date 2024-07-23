@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rogerio.edfisica.model.Material;
 import com.rogerio.edfisica.model.SalaAula;
 import com.rogerio.edfisica.repositories.SalaAulaRepository;
 import com.rogerio.edfisica.service.exceptions.ObjectNotFoundException;
@@ -44,6 +43,11 @@ public class SalaAulaService {
 		findById(id);
 		salaAulaRepository.deleteById(id);
 		
+	}
+
+	public List<SalaAula> findByNomeContainingIgnoreCase(String nome) {
+		// TODO Auto-generated method stub
+		return salaAulaRepository.findByNomeContainingIgnoreCase(nome);
 	}
 
 	

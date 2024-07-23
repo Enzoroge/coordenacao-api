@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rogerio.edfisica.model.SalaAula;
 import com.rogerio.edfisica.service.SalaAulaService;
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping(value ="/salas")
 public class SalaAulaController {
@@ -31,6 +32,14 @@ public class SalaAulaController {
 		SalaAula obj = salaAulaService.findById(id);
 		return ResponseEntity.ok().body(obj);
 
+	}
+	
+	@GetMapping(value="/nome")
+	public ResponseEntity<List<SalaAula>> findByNome(@RequestParam("nome" )String nome){
+		List<SalaAula> list = salaAulaService.findByNomeContainingIgnoreCase(nome);
+		if(list.isEmpty()) {
+			return ResponseEntity.notFound().build();	}
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping

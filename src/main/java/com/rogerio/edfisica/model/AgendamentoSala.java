@@ -1,5 +1,6 @@
 package com.rogerio.edfisica.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -15,12 +16,13 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="agendamento")
-public class AgendamentoSala {
-	
+public class AgendamentoSala implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime horaInicio;
@@ -37,13 +39,13 @@ public class AgendamentoSala {
 	public AgendamentoSala() {
 		super();
 		
+		
 	}
 
-	public AgendamentoSala(Long id, String nome, LocalDateTime horaInicio, LocalDateTime horaFim, Usuario usuario,
+	public AgendamentoSala(Long id, LocalDateTime horaInicio, LocalDateTime horaFim, Usuario usuario,
 			SalaAula sala) {
 		super();
 		this.id = id;
-		this.nome = nome;
 		this.horaInicio = horaInicio;
 		this.horaFim = horaFim;
 		this.usuario = usuario;
@@ -58,13 +60,7 @@ public class AgendamentoSala {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	
 
 	public LocalDateTime getHoraInicio() {
 		return horaInicio;

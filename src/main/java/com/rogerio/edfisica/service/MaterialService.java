@@ -50,7 +50,34 @@ public class MaterialService {
 		
 		return null;
 	}
-	
-	
+
+	public List<Material> findByNomeIgnoreCase(String nome) {
+		return materialRepository.findByNomeContainingIgnoreCase(nome);
+	}
+
+//	public List<Material> findByNome(String nome) {
+//		return materialRepository.findByNome(nome);
+//	}
+
+//	public Material findByNome(Material obj) {
+//		return materialRepository.findByNome(obj);
+//	}
+
+//	public Material findByNome(String nome) {
+//		return materialRepository.findByNome(nome);
+//	}
+
+//	public Material findByNome(Material nome) {
+//		return materialRepository.findByNome(nome);
+//	}
+//	
+//	public List<Material> findByNome(String nome) {
+//		return materialRepository.findByNomeContainingIgnoreCase(nome);
+//	}
+
+//	public List<Material> findByNomeIgnoreCase(String nome) {
+//		return materialRepository.findByNomeContainingIgnoreCase(nome);
+//	}
+//	
 
 }

@@ -17,28 +17,36 @@ public class RequisicaoMaterial {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nome;
 	private int quantidade;
+	private Integer status;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_nome")
 	private Usuario usuario;
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "material_nome")
 	private Material material;
 	
 	public RequisicaoMaterial() {
 		super();
+		this.setStatus(Status.AGUARDANDO);
+		
+	}
+	
+	public RequisicaoMaterial(String id) {
+		this.id = Long.parseLong(id);
 		
 	}
 
-	public RequisicaoMaterial(Long id, String nome, int quantidade, Usuario usuario, Material material) {
+	public RequisicaoMaterial(Long id,  int quantidade, Usuario usuario, Material material, Status status) {
 		super();
 		this.id = id;
-		this.nome = nome;
 		this.quantidade = quantidade;
 		this.usuario = usuario;
 		this.material = material;
+		this.status = (status == null) ? 0 : status.getCod();
 	}
 
 	public Long getId() {
@@ -49,13 +57,7 @@ public class RequisicaoMaterial {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	
 
 	public int getQuantidade() {
 		return quantidade;
@@ -96,6 +98,14 @@ public class RequisicaoMaterial {
 			return false;
 		RequisicaoMaterial other = (RequisicaoMaterial) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public Status getStatus() {
+		return Status.toEnum(this.status);
+	}
+
+	public void setStatus(Status status) {
+		this.status = status.getCod();
 	}
 	
 	

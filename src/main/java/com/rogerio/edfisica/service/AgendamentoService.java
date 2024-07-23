@@ -7,18 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rogerio.edfisica.model.AgendamentoSala;
-import com.rogerio.edfisica.model.RequisicaoMaterial;
 import com.rogerio.edfisica.repositories.AgendamentolRepository;
 import com.rogerio.edfisica.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class AgendamentoService {
 	
-	@Autowired
-	private UsuarioService usuarioService;
 	
-	@Autowired
-	private SalaAulaService salaAulaService;
 	
 	@Autowired
 	private AgendamentolRepository agendamentoRepository;
@@ -38,19 +33,39 @@ public class AgendamentoService {
 	}
 
 	public AgendamentoSala create(AgendamentoSala obj) {
+		if (obj.getHoraInicio().isAfter(obj.getHoraFim()) ) {
+            throw new IllegalArgumentException("A data de início deve ser anterior à data final.");
+        }
+		
+		if (agendamentoRepository.existsBySalaAndHoraInicioBetween(obj.getSala(), obj.getHoraInicio(), obj.getHoraFim()) ||
+	            agendamentoRepository.existsBySalaAndHoraInicioBetween(obj.getSala(), obj.getHoraInicio(), obj.getHoraFim())) {
+	            throw new IllegalArgumentException("Já existe um agendamento para a mesma sala e horário.");
+	        }
 		return agendamentoRepository.save(obj);
+			
+		
 	}
+	
 	
 	public AgendamentoSala update(Long id, AgendamentoSala obj) {
 	AgendamentoSala ob = findById(id);
-		ob.setNome(ob.getNome());
+		
 		ob.setHoraInicio(ob.getHoraInicio());
 		ob.setHoraFim(ob.getHoraFim());
+		ob.setSala(ob.getSala());
 		
 		
 		return agendamentoRepository.save(obj);
 		
 	}
+
+	public void delete(Long id) {
+		findById(id);
+		agendamentoRepository.deleteById(id);
+		
+	}
+
+	
 	
 	/*private AgendamentoSala from(AgendamentoSala obj) {
 		AgendamentoSala ob = new AgendamentoSala();
